@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed;
     public float jumpForce;
 
+    private bool isGrounded;
+
     private void Start()
     {
         SetInitialReferences();
@@ -21,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Run();
-        IsGrounded();
     }
 
     // Manages Player Input
@@ -37,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
             Vector2 nextPosition = transform.up * jumpForce;
             mRigidbody.AddForce(nextPosition, ForceMode2D.Impulse);
@@ -46,15 +47,22 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        Vector3 RayPosition = new Vector3(transform.position.x, transform.position.y - 0.525F, transform.position.z);
-        Debug.DrawRay(RayPosition, -transform.up, Color.red);
-
-        if (Physics.Raycast(RayPosition, -transform.up, 0.5F))
-        {
-            print("***Grounded Status: true");
-            return true;
-        }
-        print("***Grounded Status: false");
+        if (isGrounded) return true;
+        
         return false;
+    }
+
+    // TODO Remove Hardcoded LayerMask Number.
+    // Grounded Collision Checking
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 8)
+            isGrounded = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 8)
+            isGrounded = false;
     }
 }
