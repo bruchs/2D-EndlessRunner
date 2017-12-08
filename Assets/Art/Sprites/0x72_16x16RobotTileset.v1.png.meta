@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 7e1cfe2c202d6d841b779539973311a4
-timeCreated: 1512087776
+timeCreated: 1512275389
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -1376,10 +1376,10 @@ TextureImporter:
       name: 0x72_16x16RobotTileset.v1_83
       rect:
         serializedVersion: 2
-        x: 112
+        x: 144
         y: 288
-        width: 80
-        height: 24
+        width: 16
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -19,40 +19,46 @@ public class PlayerMovement : MonoBehaviour
         mRigidbody = GetComponent<Rigidbody2D>();
     }
 
-    // Manages Player Movement
+    // Manages Player Input
     private void FixedUpdate()
     {
         Run();
-    }
-
-    // Manages Player Input
-    private void Update()
-    {
         Jump();
+        Land();
     }
 
     private void Run()
     {
-        transform.position += transform.right * (movementSpeed * Time.deltaTime);
+        transform.position += transform.right * (movementSpeed * Time.fixedDeltaTime);
+        ScoreManager.instance.AddScore(1);
     }
 
+    // TODO Add Double Jump
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            Vector2 nextPosition = transform.up * jumpForce;
-            mRigidbody.AddForce(nextPosition, ForceMode2D.Impulse);
+            Vector2 forceVector = transform.up * jumpForce;
+            mRigidbody.AddForce(forceVector, ForceMode2D.Impulse);
         }
     }
 
-    private bool IsGrounded()
+    private void Land()
+    {
+        if(Input.GetKeyDown(KeyCode.DownArrow) && !isGrounded)
+        {
+            Vector2 forceVector = -transform.up * jumpForce;
+            mRigidbody.AddForce(forceVector, ForceMode2D.Impulse);
+        }
+    }
+
+    public bool IsGrounded()
     {
         if (isGrounded) return true;
-        
+       
         return false;
     }
 
-    // TODO Remove Hardcoded LayerMask Number.
     // Grounded Collision Checking
     private void OnCollisionEnter2D(Collision2D collision)
     {

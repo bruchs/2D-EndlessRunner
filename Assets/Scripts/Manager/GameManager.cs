@@ -15,8 +15,10 @@ public class GameManager : MonoBehaviour
 
     private static GameManager _instance;
     public GameObject PlayerReference;
+
     private PlayerMovement playerMovement;
     private PlayerAnimation playerAnimation;
+    private PlayerHealth playerHealth;
 
     private void Start()
     {
@@ -27,8 +29,10 @@ public class GameManager : MonoBehaviour
     {
         playerMovement = PlayerReference.GetComponent<PlayerMovement>();
         playerAnimation = PlayerReference.GetComponent<PlayerAnimation>();
+        playerHealth = PlayerReference.GetComponent<PlayerHealth>();
     }
 
-    protected PlayerMovement GetPlayerMovement() { return playerMovement; }
-    protected PlayerAnimation GetPlayerAnimation() { return playerAnimation; }
+    public PlayerMovement GetPlayerMovement() { return playerMovement; }
+    public PlayerAnimation GetPlayerAnimation() { return playerAnimation; }
+    public PlayerHealth GetPlayerHealth() { return playerHealth; }
 }

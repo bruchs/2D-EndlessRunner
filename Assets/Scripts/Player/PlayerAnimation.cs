@@ -12,7 +12,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private void SetInitialReferences()
     {
-        mAnimator = GetComponent<Animator>();
+        mAnimator = GetComponentInChildren<Animator>();
         mRigidbody = GetComponent<Rigidbody2D>();
     }
 

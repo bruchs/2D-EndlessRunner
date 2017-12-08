@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4785196624164378}
   - component: {fileID: 114283427495375666}
+  - component: {fileID: 114911870280677606}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -51,4 +52,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f15e66b5d864143b595be897539f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerReference: {fileID: 0}
+  PlayerReference: {fileID: 1753462709948930, guid: fa73b8429eb4dbd409d75cfcb616b8ca,
+    type: 2}
+--- !u!114 &114911870280677606
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1021169152917086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f23154ee5bcf904ebbbb5ea10b8e8a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mediumThreshold: 1500
+  hardThreshold: 2000
+  easyTiles: []
+  mediumTiles: []
+  hardTiles: []
