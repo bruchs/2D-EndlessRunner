@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4512940669305590}
   - component: {fileID: 198946080353087652}
   - component: {fileID: 199588635770617400}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CubeGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4255334840748120}
   - component: {fileID: 198808229457768516}
   - component: {fileID: 199004668076701316}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TinyCubes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4957993534292546}
   - component: {fileID: 198722715512722756}
   - component: {fileID: 199888388070177140}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BigGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 199551237436711752}
   - component: {fileID: 61047120855767946}
   - component: {fileID: 114526159474834338}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreToAdd: 5
+  energyToAdd: 2.5
 --- !u!198 &198599615201049656
 ParticleSystem:
   m_ObjectHideFlags: 1

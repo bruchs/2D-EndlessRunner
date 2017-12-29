@@ -4,7 +4,7 @@ public class Obstacle : MonoBehaviour
 {
     public float forceToAdd = 5.0F;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
         if (playerMovement != null)
@@ -23,8 +23,7 @@ public class Obstacle : MonoBehaviour
         {
             Rigidbody2D rigidbodyToAddForce = playerMovement.GetComponent<Rigidbody2D>();
 
-            Vector2 forceVector = -transform.up * forceToAdd;
-            rigidbodyToAddForce.AddForce(forceVector, ForceMode2D.Impulse);
+            rigidbodyToAddForce.velocity = new Vector3(rigidbodyToAddForce.velocity.x, 0.0F, 0.0F);
         }
     }
 }

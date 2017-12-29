@@ -3,49 +3,59 @@
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D mRigidbody;
+    private PlayerAudio mPlayerAudio;
+    private float totalDistance;
+    private float startingDistance;
+
     public Vector2 movementVector;
     public float movementSpeed;
     public float jumpForce;
 
-    private bool isGrounded;
-
     private void Start()
     {
         SetInitialReferences();
+        startingDistance = transform.position.x;
     }
 
     private void SetInitialReferences()
     {
         mRigidbody = GetComponent<Rigidbody2D>();
+        mPlayerAudio = GetComponent<PlayerAudio>();
     }
 
     // Manages Player Input
+    private void Update()
+    {
+        Jump();
+        Land();
+    }
+
+    // Manages Movement
     private void FixedUpdate()
     {
         Run();
-        Jump();
-        Land();
     }
 
     private void Run()
     {
         transform.position += transform.right * (movementSpeed * Time.fixedDeltaTime);
-        ScoreManager.instance.AddScore(1);
+        totalDistance = transform.position.x - startingDistance;
     }
 
-    // TODO Add Double Jump
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetMouseButtonDown(0) && IsGrounded())
         {
             Vector2 forceVector = transform.up * jumpForce;
             mRigidbody.AddForce(forceVector, ForceMode2D.Impulse);
+
+            mPlayerAudio.TriggerSoundEffect(mPlayerAudio.movementSource, mPlayerAudio.jumpClip);
         }
     }
 
     private void Land()
     {
-        if(Input.GetKeyDown(KeyCode.DownArrow) && !isGrounded)
+        if(Input.GetMouseButtonDown(0) && !IsGrounded())
         {
             Vector2 forceVector = -transform.up * jumpForce;
             mRigidbody.AddForce(forceVector, ForceMode2D.Impulse);
@@ -54,21 +64,19 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        if (isGrounded) return true;
-       
-        return false;
+        /* Use Two Different Raycasts To Check If The Player Is Grounded On His Left Or Right 'Leg' */
+
+        int layerToDetect = LayerMask.NameToLayer("Ground");
+
+        Vector3 rightRayPos = new Vector3(transform.position.x + 0.25F, transform.position.y - 0.75f, transform.position.z);
+        Vector3 leftRayPos = new Vector3(transform.position.x - 0.25F, transform.position.y - 0.75F, transform.position.z);
+
+        bool isGroundedRight = Physics2D.Raycast(rightRayPos, -transform.up, 0.25F, 1 << layerToDetect);
+        bool isGroundedLeft = Physics2D.Raycast(leftRayPos, -transform.up, 0.25F, 1 << layerToDetect);
+
+        if (isGroundedRight || isGroundedLeft) return true;
+        else return false;
     }
 
-    // Grounded Collision Checking
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == 8)
-            isGrounded = true;
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == 8)
-            isGrounded = false;
-    }
+    public float GetTotalDistance(){ return totalDistance; }
 }

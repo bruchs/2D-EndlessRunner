@@ -14,12 +14,24 @@ public class LevelManager : MonoBehaviour
     }
 
     private static LevelManager _instance;
+
+    [Header("Difficult Threshold")]
     public int mediumThreshold, hardThreshold;
-    public GameObject[] easyTiles, mediumTiles, hardTiles;
+    [Header("Tiles By Difficult")]
+    public LevelPiece[] easyTiles, mediumTiles, hardTiles;
 
     private int currentDistance = 0;
+    private float distanceToSpawn = 36.0F;
+    private float distanceToAdd;
 
-    private void CheckForCurrentThreshold()
+    private void Start()
+    {
+        SpawnLevel(easyTiles);
+        distanceToSpawn = 36.0F;
+        distanceToAdd = distanceToSpawn;
+    }
+
+    public void CheckForCurrentThreshold()
     {
         int CurrentThreshold = ScoreManager.instance.GetScore();
 
@@ -39,8 +51,19 @@ public class LevelManager : MonoBehaviour
             SpawnLevel(easyTiles);
     }
 
-    private void SpawnLevel(GameObject[] currentTiles)
+    private void SpawnLevel(LevelPiece[] currentTiles)
     {
+        /* Set The Distance To Instantiate The Tile And Select
+           A Random Tile From The Tiles Array */
+        
+        distanceToSpawn += distanceToAdd; // TODO Change Harcoded Float
+        Vector3 spawnPoint = new Vector3(distanceToSpawn, -2.0F, 0.0F);
 
+        /* Select One Of The Level Pieces Randomly and Get One Of It Sections By A Random Value. */
+        int randomLevelPieceIndex = Random.Range(0, currentTiles.Length);
+        int randomLevelSectionIndex = Random.Range(0, currentTiles[randomLevelPieceIndex].tiles.Length);
+
+        Instantiate(currentTiles[randomLevelPieceIndex].tiles[randomLevelSectionIndex], spawnPoint, 
+            currentTiles[randomLevelPieceIndex].tiles[randomLevelSectionIndex].transform.rotation);
     }
 }

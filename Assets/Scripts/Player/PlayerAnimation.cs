@@ -4,6 +4,7 @@ public class PlayerAnimation : MonoBehaviour
 {
     private Animator mAnimator;
     private Rigidbody2D mRigidbody;
+    private PlayerMovement mPlayerMovement;
 
     private void Start()
     {
@@ -14,6 +15,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         mAnimator = GetComponentInChildren<Animator>();
         mRigidbody = GetComponent<Rigidbody2D>();
+        mPlayerMovement = GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -23,15 +25,15 @@ public class PlayerAnimation : MonoBehaviour
 
     private void SetCurrentAnimation()
     {
-        // TODO Check For Player State (Dead Or Alive).
-        // TODO Check For Player Grounded.
-
-        // If Player Speed Is Greater Than 0 and Player Is Not Jumping
-        if (mRigidbody.velocity.x > 0.0F)
-        {
+        if (mPlayerMovement.IsGrounded())
             mAnimator.SetBool("IsRunning", true);
-        }
         else
             mAnimator.SetBool("IsRunning", false);
+    }
+
+    public void SetDeadAnimationState()
+    {
+        mAnimator.SetBool("IsRunning", false);
+        mAnimator.SetBool("IsDead", true);
     }
 }

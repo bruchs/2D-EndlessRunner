@@ -15,14 +15,11 @@ public class ScoreManager : MonoBehaviour
 
     private static ScoreManager _instance;
     private int score;
-
-    private void Update()
-    {
-        // TODO Show Score On UI.
-        // Debug.Log("***CurrentScore : " + score);
-    }
+    private int highestScore;
 
     // Call This Method Everytime The Player Get Points
     public void AddScore(int scoreToAdd){ score += scoreToAdd; }
-    public int GetScore() { return score; }
+    public int GetScore() { return score + (int)GameManager.instance.GetPlayerMovement().GetTotalDistance(); }
+    public void SetHighestScore(int newScore) { highestScore = newScore; }
+    public int GetHighestScore() { return highestScore; }
 }

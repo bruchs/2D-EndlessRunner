@@ -1,16 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class LevelDestroyer : MonoBehaviour {
+public class LevelDestroyer : MonoBehaviour
+{
+    private LevelManager levelManager;
+    public float distanceFromPlayer = 25.0F;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void Start()
+    {
+        levelManager = LevelManager.instance;
+    }
+
+    private void Update()
+    {
+        if(GameManager.instance.PlayerReference != null)
+        {
+            Vector3 positionToFollow = GameManager.instance.PlayerReference.transform.position;
+            transform.position = new Vector3(positionToFollow.x - distanceFromPlayer, 0.0F, 0.0F);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        LevelSection currentPiece = collision.gameObject.GetComponent<LevelSection>();
+        if (currentPiece != null)
+        {
+            Destroy(currentPiece.gameObject);
+            levelManager.CheckForCurrentThreshold();
+        }
+    }
 }

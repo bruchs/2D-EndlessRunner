@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 47eca3de43b01b8418d19cd781d44403
+timeCreated: 1513910201
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: dark forest
+  fontNames:
+  - dark forest
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
